@@ -1,22 +1,23 @@
 const request = require('request')
-const iconv  = require('iconv-lite')
+const iconv = require('iconv-lite')
 const parseString = require('xml2js').parseString
 
-request({ 
-    uri: 'https://walmart.alertlink.com/rss/stores.rss',
-    gzip: true,
-    encoding: null,
-    headers: {
-        "Accept-Encoding": "gzip, deflate, br"
-    }
+request({
+  uri: 'https://walmart.alertlink.com/rss/stores.rss',
+  gzip: true,
+  encoding: null,
+  headers: {
+    'Accept-Encoding': 'gzip, deflate, br'
+  }
 }, (err, res, body) => {
-    if (err) return callback(err)
+  if (err) return
 
-    const rss = iconv.decode(new Buffer(body), "utf16");
+  const rss = iconv.decode(new Buffer(body), 'utf16')
 
-    parseString(rss, function (err, result) {
-        console.log(result)
-    })
+  parseString(rss, function (err, result) {
+    if (err) return
+    console.log(result)
+  })
 })
 
 /* Example raw API response

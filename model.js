@@ -6,27 +6,26 @@
   Documentation: http://koopjs.github.io/docs/specs/provider/
 */
 const request = require('request').defaults({gzip: true, json: false})
-const config = require('config')
-const iconv  = require('iconv-lite')
+const iconv = require('iconv-lite')
 const parseString = require('xml2js').parseString
 
 function Model (koop) {}
 
 // This is the only public function you need to implement
 Model.prototype.getData = function (req, callback) {
-
   // Call the remote API without a developer key
-  request({ 
+  request({
     uri: 'https://walmart.alertlink.com/rss/stores.rss',
     encoding: null
   }, (err, res, body) => {
     if (err) return callback(err)
 
     // walmart sends back the response as utf16. who knew?!
-    const rss = iconv.decode(new Buffer(body), "utf16");
+    const rss = iconv.decode(new Buffer(body), 'utf16')
 
     parseString(rss, function (err, result) {
-      
+      if (err) return callback()
+
       // translate the response into geojson
       const geojson = translate(result)
 
@@ -49,7 +48,7 @@ function translate (input) {
 
 function formatFeature (walmart) {
   // gml is kinda nasty
-  const pointCoords = walmart['georss:where'][0]['gml:Point'][0]['gml:pos'][0].split(" ")
+  const pointCoords = walmart['georss:where'][0]['gml:Point'][0]['gml:pos'][0].split(' ')
 
   const feature = {
     type: 'Feature',
@@ -66,13 +65,13 @@ function formatFeature (walmart) {
     },
     geometry: {
       type: 'Point',
-      coordinates: [ 
+      coordinates: [
         parseFloat(pointCoords[1]),
         parseFloat(pointCoords[0])
       ]
     }
   }
-  
+
   return feature
 }
 

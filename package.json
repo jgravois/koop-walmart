@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "standard && tape test/*.js | tap-spec"
+    "lint": "standard",
+    "test": "npm run lint && tape test/*.js | tap-spec"
   },
   "dependencies": {
     "aws-serverless-express": "^3.0.2",
@@ -19,7 +20,7 @@
     "request": "^2.79.0",
     "xml2js": "^0.4.19"
   },
-  "author": "Daniel Fenton",
+  "author": "John Gravois",
   "license": "Apache-2.0",
   "devDependencies": {
     "nock": "^9.0.2",

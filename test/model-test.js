@@ -1,7 +1,7 @@
 /*
   model-test.js
 
-  This file is optional, but is strongly recommended. It tests the `getData` function to ensure its translating
+  This file is optional, but is strongly recommended. It tests the `getData` function to ensure it is translating
   correctly.
 */
 
@@ -11,9 +11,9 @@ const model = new Model()
 const nock = require('nock')
 
 test('should properly fetch from the API and translate features', t => {
-  nock('https://developer.trimet.org')
-  .get('/ws/v2/vehicles/onRouteOnly/false/appid/8A0EBB788E8205888807BAC97')
-  .reply(200, require('./fixtures/input.json'))
+  nock('https://walmart.alertlink.com')
+  .get('/rss/stores.rss')
+  .reply(200, require('./fixtures/input.xml'))
 
   model.getData({}, (err, geojson) => {
     t.error(err)
