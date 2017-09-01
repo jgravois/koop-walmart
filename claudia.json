@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "walmart-georss-executor",
+    "name": "walmart-georss",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "6fy3qrpsf1"
+  }
+}
