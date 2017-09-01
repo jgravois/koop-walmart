@@ -8,7 +8,7 @@
 
 const provider = {
   type: 'provider',
-  name: 'sample',
+  name: 'walmart',
   hosts: false,
   disableIdParam: true,
   Controller: require('./controller'),
